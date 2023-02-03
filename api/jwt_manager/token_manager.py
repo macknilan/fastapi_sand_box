@@ -6,7 +6,7 @@ from jwt import encode, decode
 from dotenv import load_dotenv
 
 
-BASE_DIR = os.path.dirname(os.path.abspath(os.path.dirname(__file__)))
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(os.path.dirname(__file__))))
 ENV_DIR = os.path.join(BASE_DIR, ".envs")
 
 load_dotenv(os.path.join(ENV_DIR, ".env"))

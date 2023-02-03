@@ -5,17 +5,16 @@ Router for Authorization
 # Python
 
 # Pydantic
-from pydantic import SecretStr, Field
 
 # fastpi
-from fastapi import APIRouter, status, Form, HTTPException, Body, Path, Request
-from fastapi.responses import HTMLResponse, JSONResponse
+from fastapi import APIRouter, status, Body
+from fastapi.responses import JSONResponse
 
 # Model
-from models.user import Person
+from api.models.user import Person
 
 # token
-from jwt_manager import token_manager
+from api.jwt_manager import token_manager
 
 router = APIRouter(prefix="/authorization", tags=["Authorization"])
 
@@ -48,8 +47,11 @@ async def sing_in(
     """
     Servicio que simula el SignIn de usuario y que cumpla el email y password
     en el if
+
     :param email:
+
     :param password:
+
     :return: token
     """
     if email == "admin@email.com" and password == "admin":

@@ -5,18 +5,16 @@ Router for Movies
 # Python
 
 # Pydantic
-from pydantic import SecretStr
 
 # fastpi
-from fastapi import APIRouter, status, HTTPException, Body, Path, Depends
-from fastapi.responses import HTMLResponse, JSONResponse
+from fastapi import APIRouter, status, HTTPException, Path, Depends
 from starlette.responses import JSONResponse
 
 # Model
-from models.movies import Movies
+from api.models.movies import Movies
 
 # Security
-from security_manager import security_manager
+from api.security_manager import security_manager
 
 router = APIRouter(prefix="/movies", tags=["Movies"])
 

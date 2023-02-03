@@ -8,7 +8,7 @@ Run:
 # fastpi
 from fastapi import FastAPI
 
-from routers import sign_in, users, movies, authorization
+from api.routers import sign_in, users, movies, authorization
 
 app = FastAPI(
     # root_path="/api/v1",

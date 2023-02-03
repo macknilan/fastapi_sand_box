@@ -17,7 +17,7 @@ from fastapi import (
 )
 
 # Models
-from models.user import Location, Person
+from api.models.user import Location, Person
 
 router = APIRouter(prefix="/users", tags=["Users"])
 
