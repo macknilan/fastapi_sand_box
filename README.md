@@ -25,7 +25,7 @@ Agregar el archivo `books.json` al archivo `.zip`
 zip lambda_function.zip -u books.json
 ```
 
-En caso de que se requiera matar el proceso `uvicorn main:app --reload`
+En caso de que se requiera matar el proceso `uvicorn api.main:app --reload`
 
 ```bash
 lsof -i :8000
