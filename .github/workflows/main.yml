@@ -21,9 +21,10 @@ jobs:
       # Step-1 Setup Python
       - name: Set up Python
         # This action sets up a Python environment for use in actions
+        # https://raw.githubusercontent.com/actions/python-versions/main/versions-manifest.json
         uses: actions/setup-python@v4
         with:
-          python-version: 3.10
+          python-version: 3.10.6
           # optional: architecture: x64 x64 or x86. Defaults to x64 if not specified
 
       # Step-2 Install Python Virtual ENV
@@ -54,7 +55,7 @@ jobs:
         run: . venv/bin/activate && pytest
       - name: Create archive of dependencies
         run: |
-          cd ./venv/lib/python3.10/site-packages
+          cd ./venv/lib/python3.10.6/site-packages
           zip -r9 ../../../../api.zip .
       - name: Add API files to Zip file
         run: cd ./api && zip -g ../api.zip -r .
