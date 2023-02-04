@@ -5,10 +5,10 @@ Instalar las dependencias en carpeta `lib`, dentro del directorio para después 
 pip install -t lib -r requirements.txt
 ```
 
-Crear el archivo `.zip`
+Crear el archivo `.zip` de la carpeta creada `lib`
 
 ```bash
-(cd lib; zip ../lambda_function.zip -r .)
+(cd lib; zip -r9 ../lambda_function.zip .)
 ```
 
 Agregar el archivo `main.py` al archivo `.zip`
