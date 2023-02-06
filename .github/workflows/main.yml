@@ -78,7 +78,7 @@ jobs:
       - name: Install AWS CLI
         uses: unfor19/install-aws-cli-action@v1
         with:
-          version: 2
+          version: 1
           verbose: true
           arch: amd64
         env:
