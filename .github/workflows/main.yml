@@ -76,9 +76,9 @@ jobs:
     if: github.ref == 'refs/heads/main' && github.event_name == 'push'
     steps:
       - name: Install AWS CLI
-        uses: unfor19/install-aws-cli-action@v1
+        uses: unfor19/install-aws-cli-action@v2
         with:
-          version: 1
+          version: 2
           verbose: true
           arch: amd64
         env:
