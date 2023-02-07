@@ -4,6 +4,10 @@ In Python 3.10.6
 Run:
     uvicorn main:app --reload
 """
+import os
+import sys
+
+sys.path.append(os.path.join(os.path.dirname(__file__)))
 
 # fastpi
 from fastapi import FastAPI
