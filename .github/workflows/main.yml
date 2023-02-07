@@ -84,7 +84,7 @@ jobs:
         with:
           name: api
       - name: Echo download path
-        run: echo ${{steps.download.outputs.download-path}}
+        run: echo ${{ steps.download.outputs.download-path }}
       - name: Upload to S3
         uses: jakejarvis/s3-sync-action@master
         with:
@@ -97,7 +97,7 @@ jobs:
           AWS_REGION: ${{ secrets.AWS_SECRET_DEFAULT_REGION }}
           # optional: defaults to entire repository
           # SOURCE_DIR: '/home/runner/work/fastapi_sand_box/fastapi_sand_box/api.zip'
-          SOURCE_DIR: '/github/workspace/api.zip'
+          SOURCE_DIR: '/home/runner/work/fastapi_sand_box/fastapi_sand_box/api.zip'
 
 #  CD:
 #    runs-on: ubuntu-latest
