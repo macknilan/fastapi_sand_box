@@ -83,9 +83,18 @@ jobs:
         id: download
         with:
           name: api
-      - name: 'Echo download path'
+      - name: Echo download path
         run: echo ${{steps.download.outputs.download-path}}
-
+      - name: Upload to S3
+        uses: jakejarvis/s3-sync-action@master
+        with:
+          args: --follow-symlinks --delete
+        env:
+          AWS_S3_BUCKET: ${{ secrets.AWS_BUCKET }}
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_SECRET_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_REGION: ${{ secrets.AWS_SECRET_DEFAULT_REGION }}   # optional: defaults to us-east-1
+          SOURCE_DIR: '/home/runner/work/fastapi_sand_box/fastapi_sand_box'      # optional: defaults to entire repository
 
 #  CD:
 #    runs-on: ubuntu-latest
