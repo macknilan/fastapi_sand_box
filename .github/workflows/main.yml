@@ -96,7 +96,8 @@ jobs:
           # optional: defaults to us-east-1
           AWS_REGION: ${{ secrets.AWS_SECRET_DEFAULT_REGION }}
           # optional: defaults to entire repository
-          SOURCE_DIR: '/home/runner/work/fastapi_sand_box/fastapi_sand_box/api.zip'
+          # SOURCE_DIR: '/home/runner/work/fastapi_sand_box/fastapi_sand_box/api.zip'
+          SOURCE_DIR: 'api.zip'
 
 #  CD:
 #    runs-on: ubuntu-latest
