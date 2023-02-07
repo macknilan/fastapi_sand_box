@@ -11,10 +11,12 @@ from fastapi import APIRouter, status, HTTPException, Path, Depends
 from starlette.responses import JSONResponse
 
 # Model
-from api.models.movies import Movies
+# from api.models.movies import Movies
+from ..models.movies import Movies
 
 # Security
-from api.security_manager import security_manager
+# from api.security_manager import security_manager
+from ..security_manager import security_manager
 
 router = APIRouter(prefix="/movies", tags=["Movies"])
 

@@ -11,10 +11,12 @@ from fastapi import APIRouter, status, Body
 from fastapi.responses import JSONResponse
 
 # Model
-from api.models.user import Person
+# from api.models.user import Person
+from ..models.user import Person
 
 # token
-from api.jwt_manager import token_manager
+# from api.jwt_manager import token_manager
+from ..jwt_manager import token_manager
 
 router = APIRouter(prefix="/authorization", tags=["Authorization"])
 

@@ -11,7 +11,7 @@ from fastapi import FastAPI
 # Mangum aws lambda
 from mangum import Mangum
 
-from api.routers import sign_in, users, movies, authorization
+from .routers import sign_in, users, movies, authorization
 
 app = FastAPI(
     # root_path="/api/v1",
