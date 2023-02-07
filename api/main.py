@@ -26,11 +26,11 @@ app = FastAPI(
     },
 )
 
-# aws lambda
-lambda_handler = Mangum(app)
 
 app.include_router(users.router)
 app.include_router(sign_in.router)
 app.include_router(movies.router)
 app.include_router(authorization.router)
 
+# aws lambda
+lambda_handler = Mangum(app)
