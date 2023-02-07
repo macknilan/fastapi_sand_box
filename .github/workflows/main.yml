@@ -93,8 +93,10 @@ jobs:
           AWS_S3_BUCKET: ${{ secrets.AWS_BUCKET }}
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_SECRET_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          AWS_REGION: ${{ secrets.AWS_SECRET_DEFAULT_REGION }}   # optional: defaults to us-east-1
-          SOURCE_DIR: '/home/runner/work/fastapi_sand_box/fastapi_sand_box'      # optional: defaults to entire repository
+          # optional: defaults to us-east-1
+          AWS_REGION: ${{ secrets.AWS_SECRET_DEFAULT_REGION }}
+          # optional: defaults to entire repository
+          SOURCE_DIR: '/home/runner/work/fastapi_sand_box/fastapi_sand_box/api.zip'
 
 #  CD:
 #    runs-on: ubuntu-latest
