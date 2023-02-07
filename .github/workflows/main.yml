@@ -92,8 +92,7 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: ${{ secrets.AWS_SECRET_DEFAULT_REGION }}
       - name: Upload zip file to S3
-        run: |
-          aws s3 cp api.zip s3://${{ secrets.AWS_BUCKET }}/api.zip
+        run: aws s3 cp api.zip s3://${{ secrets.AWS_BUCKET }}/api.zip
 
 
 #  CD:
