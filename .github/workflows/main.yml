@@ -78,15 +78,13 @@ jobs:
       - name: Install AWS CLI
         uses: unfor19/install-aws-cli-action@v1
         with:
-          version: 2
-          verbose: true
-          arch: amd64
+          version: 1
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_SECRET_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           AWS_DEFAULT_REGION: ${{ secrets.AWS_DEFAULT_REGION }}
       - name: Download Lambda api.zip
-        uses: actions/download-artifact@v2
+        uses: actions/download-artifact@v3
         with:
           name: api
           verbose: true
