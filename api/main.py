@@ -19,15 +19,15 @@ from .routers import users
 
 app = FastAPI(
     # root_path="/api/v1",
-    openapi_url="/api/v1/openapi.json",
-    title="My App",
-    version="0.0.1",
-    description="My description",
-    contact={"name": "mack", "url": "http://mack.host"},
-    license_info={
-        "name": "Apache 2.0",
-        "url": "https://www.apache.org/licenses/LICENSE-2.0.html",
-    },
+    # openapi_url="/api/v1/openapi.json",
+    # title="My App",
+    # version="0.0.1",
+    # description="My description",
+    # contact={"name": "mack", "url": "http://mack.host"},
+    # license_info={
+    #     "name": "Apache 2.0",
+    #     "url": "https://www.apache.org/licenses/LICENSE-2.0.html",
+    # },
 )
 
 
