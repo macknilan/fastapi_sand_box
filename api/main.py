@@ -38,7 +38,7 @@ if os.path.exists(BOOKS_FILE):
 
 app = FastAPI()
 
-lambda_handler = Mangum(app)
+handler = Mangum(app)
 
 
 @app.get("/")
