@@ -9,11 +9,11 @@ from app.main import app
 client = TestClient(app.router)
 
 
-def test_home():
+def test_root():
     """
     Función para test de la ruta / de usuarios.
     :return:
     """
-    response = client.get("users/")
+    response = client.get("/")
     assert response.status_code == 200
-    assert response.json() == {"Hello": "World"}
+    assert response.json() == {"message": "Welcome to my bookstore app!"}
