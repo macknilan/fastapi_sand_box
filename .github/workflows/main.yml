@@ -80,7 +80,7 @@ jobs:
         uses: actions/download-artifact@v3
         id: download
         with:
-          name: app
+          name: api
       - name: Echo download path
         run: ls ${{ steps.download.outputs.download-path }}
       - name: Setup AWS CLI
@@ -90,6 +90,6 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: ${{ secrets.AWS_SECRET_DEFAULT_REGION }}
       - name: Upload zip file to S3
-        run: aws s3 cp app.zip s3://${{ secrets.AWS_BUCKET }}/app.zip
+        run: aws s3 cp api.zip s3://${{ secrets.AWS_BUCKET }}/api.zip
       - name: Deploy new Lambda
         run: aws lambda update-function-code --function-name fastapi-lambda-develop --s3-bucket ${{ secrets.AWS_BUCKET }} --s3-key app.zip
