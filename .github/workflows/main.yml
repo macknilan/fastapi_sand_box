@@ -92,4 +92,4 @@ jobs:
       - name: Upload zip file to S3
         run: aws s3 cp api.zip s3://${{ secrets.AWS_BUCKET }}/api.zip
       - name: Deploy new Lambda
-        run: aws lambda update-function-code --function-name fastapi-lambda-develop --s3-bucket ${{ secrets.AWS_BUCKET }} --s3-key app.zip
+        run: aws lambda update-function-code --function-name fastapi-lambda-develop --s3-bucket ${{ secrets.AWS_BUCKET }} --s3-key api.zip
