@@ -20,6 +20,7 @@ from fastapi import (
 # from api.models.user import Location, Person
 from ..models.user import Location, Person
 
+# router = APIRouter(prefix="/users", tags=["Users"])
 router = APIRouter(prefix="/users", tags=["Users"])
 
 # ROUTES

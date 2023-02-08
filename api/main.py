@@ -31,7 +31,7 @@ app = FastAPI(
 )
 
 
-app.include_router(users.router)
+app.include_router(users.router, prefix="/users")
 # app.include_router(sign_in.router)
 # app.include_router(movies.router)
 # app.include_router(authorization.router)
