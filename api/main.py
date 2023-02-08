@@ -36,9 +36,18 @@ if os.path.exists(BOOKS_FILE):
     with open(BOOKS_FILE, "r") as f:
         BOOKS = json.load(f)
 
-app = FastAPI()
-
-handler = Mangum(app)
+app = FastAPI(
+    # root_path="/api/v1",
+    openapi_url="/api/v1/openapi.json",
+    title="My App",
+    version="0.0.1",
+    description="My description",
+    contact={"name": "mack", "url": "http://mack.host"},
+    license_info={
+        "name": "Apache 2.0",
+        "url": "https://www.apache.org/licenses/LICENSE-2.0.html",
+    },
+)
 
 
 @app.get("/")
@@ -83,3 +92,6 @@ async def get_book(book_id: str):
             return book
 
     raise HTTPException(404, f"Book ID {book_id} not found in database.")
+
+
+handler = Mangum(app)
