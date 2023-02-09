@@ -8,14 +8,12 @@ from fastapi import (APIRouter, status)
 
 # Models
 # from api.models.user import Location, Person
-from ..models.user import Person
+# from ..models.user import Person
 
-router = APIRouter(prefix="/users", tags=["Users"])
-
-# ROUTES
+router_user = APIRouter(prefix="/users", tags=["Users"])
 
 
-@router.get("/", summary="First service for testing", status_code=status.HTTP_200_OK)
+@router_user.get("/", summary="First service for testing", status_code=status.HTTP_200_OK)
 async def home():
     """
     Endpoint for test Hellow Word

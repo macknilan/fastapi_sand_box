@@ -15,13 +15,14 @@ from fastapi import FastAPI
 # Mangum aws lambda
 from mangum import Mangum
 
-from .api.routers import users
+from .api.routers.users import router_user
 
 app = FastAPI()
-
-handler = Mangum(app)
-
-app.include_router(users.router)
+app.include_router(router_user)
 
 
 # aws lambda
+handler_user = Mangum(router_user, lifespan="off")
+
+
+
