@@ -4,7 +4,8 @@ Ejemplo de FastAPI para AWS Lambda
 
 from fastapi import FastAPI
 
-from app.api.api_v1.api import router as api_router
+# from app.api.api_v1.api import router as api_router
+from .api.api_v1.api import router as api_router
 from mangum import Mangum
 
 app = FastAPI()
