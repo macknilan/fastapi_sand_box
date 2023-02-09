@@ -1,20 +1,27 @@
 """
-Ejemplo de FastAPI para AWS Lambda
+Script de FastAPI de hello word
+In Python 3.10.6
+Run:
+    uvicorn main:app --reload
 """
+# import os
+# import sys
+#
+# sys.path.append(os.path.join(os.path.dirname(__file__)))
 
+# fastpi
 from fastapi import FastAPI
 
-# from app.api.api_v1.api import router as api_router
-from .api.api_v1.api import router as api_router
+# Mangum aws lambda
 from mangum import Mangum
+
+from .api.routers import users
 
 app = FastAPI()
 
 
-@app.get("/")
-async def root():
-    return {"message`": "Hello World!"}
+app.include_router(users.router)
 
 
-app.include_router(api_router, prefix="/api/v1")
+# aws lambda
 handler = Mangum(app)
