@@ -10,7 +10,7 @@ Run:
 # sys.path.append(os.path.join(os.path.dirname(__file__)))
 
 # fastpi
-from fastapi import FastAPI
+from fastapi import FastAPI, APIRouter
 
 # Mangum aws lambda
 from mangum import Mangum
@@ -19,9 +19,12 @@ from .api.routers import users
 
 app = FastAPI()
 
+router_user = APIRouter()
 
 app.include_router(users.router)
 
 
 # aws lambda
-handler = Mangum(app)
+# handler = Mangum(app)
+
+handler_user = Mangum(router_user)
