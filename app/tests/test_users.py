@@ -14,6 +14,6 @@ def test_root():
     Función para test de la ruta / de usuarios.
     :return:
     """
-    response = client.get("users/")
+    response = client.get("/api/v1/users/")
     assert response.status_code == 200
-    assert response.json() == {"message": "Welcome to my bookstore app!"}
+    assert response.json() == {"message": "Get Users!"}
