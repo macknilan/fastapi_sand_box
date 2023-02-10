@@ -61,8 +61,8 @@ jobs:
       - name: Add API files to Zip file
         run: cd ./lib && zip -r9 ../api.zip .
       # Step-9
-      - name Add app folder to zip file
-      - run: cd ./app && zip -r ../api.zip .
+      - name: Add app folder to zip file
+        run: cd ./app && zip -r ../api.zip .
       # Step-10
       - name: Upload zip file artifact
         # uploads artifacts from your workflow allowing you to share data between jobs
