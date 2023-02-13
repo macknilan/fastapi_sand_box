@@ -31,10 +31,10 @@ jobs:
       - name: Install environment
         run: pip3 install virtualenv
       # Step-3 Using pip to get cache location
-      - name: Get pip cache dir
-        id: pip-cache
-        run: |
-          echo "dir=$(pip cache dir)" >> $GITHUB_OUTPUT
+#      - name: Get pip cache dir
+#        id: pip-cache
+#        run: |
+#          echo "dir=$(pip cache dir)" >> $GITHUB_OUTPUT
       # Step-4 Cache
       # https://github.com/actions/cache/blob/main/examples.md#python---pip
       - name: Cache dependencies
