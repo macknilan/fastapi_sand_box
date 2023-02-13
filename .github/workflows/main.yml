@@ -66,7 +66,7 @@ jobs:
         run: pip install -t lib -r requirements.txt
       # Step-8
       - name: Add API files to Zip file
-        run: cd ./lib && zip -g ../api.zip --r9 .
+        run: cd ./lib && zip -g ../api.zip -r9 .
       # Step-9
       - name: Add app folder to zip file
         run: cd ./app && zip -r9 ../api.zip .
