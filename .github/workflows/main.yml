@@ -76,7 +76,7 @@ jobs:
         # Store data once a workflow is complete
         uses: actions/upload-artifact@v3
         with:
-          name: api
+          # name: api
           path: api.zip
 #  CD:
 #    runs-on: ubuntu-latest
