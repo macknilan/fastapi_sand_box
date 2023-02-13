@@ -69,14 +69,14 @@ jobs:
         run: cd ./lib && zip -r9 ../api.zip .
       # Step-9
       - name: Add app folder to zip file
-        run: cd ./app && zip -r ../api.zip .
+        run: cd ./app && zip -r9 ../api.zip .
       # Step-10
       - name: Upload zip file artifact
         # uploads artifacts from your workflow allowing you to share data between jobs
         # Store data once a workflow is complete
         uses: actions/upload-artifact@v3
         with:
-          name: api
+          # name: api
           path: api.zip
 #  CD:
 #    runs-on: ubuntu-latest
