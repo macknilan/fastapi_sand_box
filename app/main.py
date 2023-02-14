@@ -6,6 +6,9 @@ app = FastAPI()
 
 @app.get("/")
 def root():
+    """
+    Docs
+    """
     return {"message": "Up and running!"}
 
 
