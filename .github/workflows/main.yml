@@ -19,48 +19,58 @@ jobs:
     steps:
       # Check out repo so our workflow can access it
       - uses: actions/checkout@v3
-
       # Step-1 Setup Python
-      - name: Set up Python
-        # This action sets up a Python environment for use in actions
-        # https://raw.githubusercontent.com/actions/python-versions/main/versions-manifest.json
+      # This action sets up a Python environment for use in actions
+      # https://raw.githubusercontent.com/actions/python-versions/main/versions-manifest.json
+      - name: Install Python
         uses: actions/setup-python@v4
         with:
           python-version: 3.10.6
-          # optional: architecture: x64 x64 or x86. Defaults to x64 if not specified
-
-      # Step-2 Install Python Virtual ENV
-      - name: Install Python Virtual ENV
+          cache: "pip"
+      # Step-2 Install environment
+      - name: Install environment
         run: pip3 install virtualenv
-
-      # Step-3 Setup Virtual ENV
-      # https://docs.github.com/en/actions/guides/caching-dependencies-to-speed-up-workflows
-      - name:  Virtual ENV
-        # https://docs.github.com/en/actions/using-workflows/caching-dependencies-to-speed-up-workflows#using-the-cache-action
+      # Step-3 Using pip to get cache location
+#      - name: Get pip cache dir
+#        id: pip-cache
+#        run: |
+#          echo "dir=$(pip cache dir)" >> $GITHUB_OUTPUT
+      # Step-4 Cache
+      # https://github.com/actions/cache/blob/main/examples.md#python---pip
+      - name: Cache dependencies
         uses: actions/cache@v3
         id: cache-venv # name for referring later
         with:
-          path: venv # what we cache: the Virtual ENV
-          # The cache key depends on requirements.txt
-          key: ${{ runner.os }}-venv-${{ hashFiles('**/requirements*.txt') }}
+          path: ~/.cache/pip
+          key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements.txt') }}
           restore-keys: |
-            ${{ runner.os }}-venv-
-
-      # Step-4 Build a Virtual ENV, but only if it doesn't already exist
+            ${{ runner.os }}-pip-
+      # Step-5 Build a Virtual ENV
       - name: Activate Virtual ENV
-        run: python -m venv venv && source venv/bin/activate && pip3 install -r requirements.txt
-        if: steps.cache-venv.outputs.cache-hit != 'true'
-
-      - name: Run Tests
-        # Note that you have to activate the virtualenv in every step
-        # because GitHub actions doesn't preserve the environment
-        run: . venv/bin/activate && pytest
-      - name: Create archive of dependencies
+        # if: steps.cache-venv.outputs.cache-hit != 'true'
         run: |
-          cd ./venv/lib/python3.10/site-packages
-          zip -r9 ../../../../api.zip .
+          python -m pip install --upgrade pip
+          python -m venv venv
+          source venv/bin/activate
+          pip install -r requirements.txt
+      # Step-6 Run Tests
+      - name: Run Tests
+        # Note that you have to activate the virtualenv in every ste p
+        # because GitHub actions doesn't preserve the environment
+        run: |
+          source venv/bin/activate
+          pytest
+        # run: . source venv/bin/activate && pytest
+      # Step-7
+      - name: Create folder of dependencies
+        run: pip install -t lib -r requirements.txt
+      # Step-8
       - name: Add API files to Zip file
-        run: cd ./api && zip -g ../api.zip -r .
+        run: cd ./lib && zip -r9 ../api.zip .
+      # Step-9
+      - name: Add app folder to zip file
+        run: cd ./app && zip -g ../api.zip -r .
+      # Step-10
       - name: Upload zip file artifact
         # uploads artifacts from your workflow allowing you to share data between jobs
         # Store data once a workflow is complete
@@ -68,7 +78,6 @@ jobs:
         with:
           name: api
           path: api.zip
-
   CD:
     runs-on: ubuntu-latest
     needs: [CI]
@@ -78,7 +87,7 @@ jobs:
       - name: Check out repo
         # Check out repo so our workflow can access it
         uses: actions/checkout@v3
-      - name: Download Lambda api.zip
+      - name: Download Lambda app.zip
         uses: actions/download-artifact@v3
         id: download
         with:
