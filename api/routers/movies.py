@@ -1,6 +1,7 @@
 """
 Router for Movies
 """
+from typing import Dict
 
 # Python
 
@@ -56,12 +57,12 @@ movies_list = [
     },
 ]
 
-movies_list_update = {
-    "title": "str",
-    "overview": "str",
-    "year": "int",
-    "rating": "float",
-    "category": "str",
+movies_list_update: dict[str, float | str | int] = {
+    "title": "Movie title",
+    "overview": "Description of the movie",
+    "year": 2001,
+    "rating": 9.1,
+    "category": "Action"
 }
 
 
@@ -80,7 +81,7 @@ async def get_movies() -> JSONResponse:
 
 
 @router.get(
-    "/{movie_id}",
+    "/list_movies_parameter{movie_id}",
     response_model=Movies,
     status_code=status.HTTP_200_OK,
     summary="List movies by ID",
@@ -136,24 +137,29 @@ async def create_movie(movie: Movies):
 
 
 @router.put(
-    "/update_deprecated/{movie_id}",
-    response_model=dict,
-    status_code=status.HTTP_200_OK,
+    "/update/{movie_id}",
+    response_model=Movies,
+    status_code=status.HTTP_201_CREATED,
     summary="Update movie",
-    deprecated=True,
 )
-async def update_movie(movie_id: int, movie_to_update: dict = movies_list_update):
+async def update_movie(
+        movie_id: int = Path(
+        gt=0,
+        title="The ID of the movie.",
+        description="This is the ID movie. It's required.",
+        example=1),
+        movie_to_update: dict = movies_list_update,
+):
     """
     Actualizar una película por parámetros en el body buscando por el parámetro de ID
     """
-    filtered_list_movies = list(filter(lambda x: id == x["id"], movies_list))
-    list_movies = list(filtered_list_movies)
-    if not list_movies:
+    filtered_list_movies = list(filter(lambda x: movie_id == x["id"], movies_list))
+    if not filtered_list_movies:
         raise HTTPException(status_code=404, detail="Movie not found! t(-_-t)")
     else:
-        movies_list[0].update(
+        filtered_list_movies[0].update(
             {
-                "id": id,
+                "id": movie_id,
                 "title": movie_to_update["title"],
                 "overview": movie_to_update["overview"],
                 "year": movie_to_update["year"],
@@ -161,29 +167,7 @@ async def update_movie(movie_id: int, movie_to_update: dict = movies_list_update
                 "category": movie_to_update["category"],
             }
         )
-
-    return JSONResponse(content=movies_list)
-
-
-@router.put(
-    "/update/{movie_id}",
-    status_code=status.HTTP_200_OK,
-    summary="Update movie.",
-    response_model=Movies,
-)
-async def update_person(
-    movie: Movies,
-    # Validación parámetro de ruta.
-    movie_id: int = Path(
-        gt=0,
-        title="The ID of the movie.",
-        description="This is the ID movie. It's required.",
-        example=1,
-    ),
-):
-    response = {"movie_id": movie_id, "movie": movie}
-    # return JSONResponse(content=Movies)
-    return JSONResponse(content=response)
+    return JSONResponse(content=filtered_list_movies[0])
 
 
 @router.delete(
