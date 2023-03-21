@@ -7,12 +7,6 @@ from enum import Enum
 from pydantic import BaseModel, Field, SecretStr, EmailStr
 
 
-class HairColor(Enum):
-    white = "white"
-    brown = "brown"
-    blonde = "blonde"
-
-
 class Location(BaseModel):
     city: str = Field(
         title="The City",
@@ -37,7 +31,39 @@ class Location(BaseModel):
     )
 
 
-class Person(BaseModel):
+class HairColor(Enum):
+    white = "white"
+    brown = "brown"
+    blonde = "blonde"
+
+
+class SignIn(BaseModel):
+    email: EmailStr = Field(
+        title="Email",
+        description="Email user",
+        example="johndoe@mail.com",
+    )
+
+
+class SecretWord(SignIn):
+    password: str = Field(
+        title="Password",
+        description="Password user, minimo 8 caracteres, máximo 20 caracteres",
+        min_length=8,
+        max_length=20,
+        example="password",
+    )
+    # password: SecretStr = Field(
+    #     title="Password",
+    #     description="Password user, minimo 8 caracteres, máximo 20 caracteres",
+    #     min_length=8,
+    #     max_length=20,
+    #     example="DkjS/WhH1pVhZ9oLSluR",
+    # )
+    # TODO: SE TIENE QUE APLICAR PROCESO DE HASH
+
+
+class BaseUser(SignIn):
     first_name: str = Field(
         title="First name",
         description="First name",
@@ -61,25 +87,3 @@ class Person(BaseModel):
     is_married: bool | None = Field(
         default=None, title="Is Married", description="Is Married", example="true"
     )  # OPTIONAL PARAMETER
-    email: EmailStr = Field(
-        title="Email",
-        description="Email user",
-        example="johndoe@mail.com",
-    )
-    # password: SecretStr = Field(
-    #     title="Password",
-    #     description="Password user, minimo 8 caracteres, máximo 20 caracteres",
-    #     min_length=8,
-    #     max_length=20,
-    #     example="DkjS/WhH1pVhZ9oLSluR",
-    # )
-    password: str = Field(
-        title="Password",
-        description="Password user, minimo 8 caracteres, máximo 20 caracteres",
-        min_length=8,
-        max_length=20,
-        example="DkjS/WhH1pVhZ9oLSluR",
-    )
-
-
-    # TODO: SE TIENE QUE APLICAR PROCESO DE HASH

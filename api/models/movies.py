@@ -44,11 +44,15 @@ class Movies(BaseModel):
 
     @validator("year")
     def year_is_valid(cls, value):
-        if not (1800 <= value <= 2023):
-            raise ValueError("Year must be a 4 digit number between 1800 and 2023.")
+        if not (1950 <= value <= 2023):
+            raise ValueError("Year must be a 4 digit number between 1950 and 2023.")
         return value
 
     class Config:
+        """
+        Esta es tora forma validar con -schema_extra- de ejemplo
+        """
+
         schema_extra = {
             "example": {
                 "id": 1,
@@ -56,6 +60,6 @@ class Movies(BaseModel):
                 "overview": "Description of the movie",
                 "year": 2022,
                 "rating": 7.8,
-                "category": "Sci-fi/Adventure"
+                "category": "Sci-fi/Adventure",
             }
         }

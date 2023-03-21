@@ -13,7 +13,11 @@ load_dotenv(os.path.join(ENV_DIR, ".env"))
 
 
 def create_token(data: dict) -> str:
-    # print("DEBUGGER")
+    """
+    FUNCION PARA GENERAR EL TOKEN
+    :param data: str
+    :return: str = token
+    """
     token: str = encode(payload=data, key=os.getenv("SECRET_KEY"), algorithm="HS256")
 
     return token
@@ -24,4 +28,3 @@ def validate_token(token: str) -> dict:
     data: dict = decode(token, key=os.getenv("SECRET_KEY"), algorithms=["HS256"])
 
     return data
-

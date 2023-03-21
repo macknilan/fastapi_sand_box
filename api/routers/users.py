@@ -17,8 +17,8 @@ from fastapi import (
 )
 
 # Models
-# from api.models.user import Location, Person
-from ..models.user import Location, Person
+
+from api.models.user import Location, BaseUser
 
 router = APIRouter(prefix="/users", tags=["Users"])
 
@@ -37,40 +37,40 @@ async def home():
 
 @router.post(
     "/add",
-    response_model=Person,
+    response_model=BaseUser,
     response_model_exclude={"password"},
     status_code=status.HTTP_201_CREATED,
     summary="Add new user/person",
 )
-async def add_person(person: Person):
+async def add_user(user: BaseUser):
     """
-    Endpoint for add person
+    Endpoint for add user
 
-    :param person:
+    :param user:
 
-    :return: person, exclude password
+    :return: user, exclude password
     """
-    return person
+    return user
 
 
 # Validaciones Query Parameters
 @router.get(
     "/detail", status_code=status.HTTP_200_OK, summary="Get detail user/person by ID"
 )
-async def detail_person(
+async def detail_user(
     name: str
     | None = Query(
         default=None,
         min_length=8,
         max_length=50,
-        title="Person name title",
+        title="User name title",
         description="It's between 1 and 50 characters.",
     ),  # QUERY PARAMETERS OPCIONAL
     age: int = Query(
         gt=0,
         le=100,
-        title="Person age title",
-        description="This is the person age. It's required.",
+        title="User age title",
+        description="This is the user age. It's required.",
     ),  # QUERY PARAMETERS OBLIGATORIO
 ):
     """
@@ -87,88 +87,88 @@ async def detail_person(
 
 
 # Validación Path Parameters
-persons = [1, 2, 3, 4, 5]
+users = [1, 2, 3, 4, 5]
 
 
 @router.get(
-    "/detail/{person_id}",
+    "/detail/{user_id}",
     status_code=status.HTTP_200_OK,
     summary="Get detail user/person by ID",
 )
-async def detail_person(
-    person_id: int = Path(
+async def detail_user(
+    user_id: int = Path(
         gt=0,
-        title="Title the ID of the item(person) to get title",
-        description="This is the ID person. It's required",
+        title="Title the ID of the item(user) to get title",
+        description="This is the ID user. It's required",
     )
 ):
     """
     Endpoint for get user with ID
     Validación Path Parameters con HTTPException
-    :param person_id:
-    :return: {person_id: "It exist"}
+    :param user_id:
+    :return: {user_id: "It exist"}
     """
-    if person_id not in persons:
+    if user_id not in users:
         raise HTTPException(
-            status_code=status.HTTP_404_NOT_FOUND, detail="Person not found t(-_-t)."
+            status_code=status.HTTP_404_NOT_FOUND, detail="User not found t(-_-t)."
         )
-    return {person_id: "It exist"}
+    return {user_id: "It exist"}
 
 
 # PRIMERA OPCIÓN
-@router.put("/detail-one/{person_id}", deprecated=True)
-async def update_person(
-    person: Person,
+@router.put("/detail-one/{user_id}", deprecated=True)
+async def update_user(
+    user: BaseUser,
     location: Location,
-    person_id: int = Path(
+    user_id: int = Path(
         gt=0,
-        title="The ID of the item(person) to get title",
-        description="This is the ID person. It's required.",
+        title="The ID of the item(user) to get title",
+        description="This is the ID user. It's required.",
     ),
 ):
-    results = person.dict()
+    results = user.dict()
     results.update(location.dict())
     return results
 
 
 # SEGUNDA OPCIÓN
-@router.put("/detail-two/{person_id}", deprecated=True)
-async def update_person(
-    person_id: int,
-    person: Person,
+@router.put("/detail-two/{user_id}", deprecated=True)
+async def update_user(
+    user_id: int,
+    user: BaseUser,
     location: Location,
 ):
-    results = {"person_id": person_id, "person": person, "location": location}
+    results = {"user_id": user_id, "user": user, "location": location}
     return results
 
 
 # TERCERA OPCIÓN
 @router.put(
-    "/detail/{person_id}", status_code=status.HTTP_200_OK, summary="Update user/person"
+    "/detail/{user_id}", status_code=status.HTTP_200_OK, summary="Update user/person"
 )
-async def update_person(
-    person: Person,
+async def update_user(
+    user: BaseUser,
     location: Location,
-    person_id: int = Path(
+    user_id: int = Path(
         gt=0,
-        title="The ID of the item(person) to get title",
-        description="This is the ID person. It's required.",
+        title="The ID of the item(user) to get title",
+        description="This is the ID user. It's required.",
         example=1,
     ),
 ):
     """
     Service for update user
 
-    :param person:
+    :param user:
 
     :param location:
 
-    :param person_id:
+    :param user_id:
 
-    :return: {"person_id": person_id, "person": person, "location": location}
+    :return: {"user_id": user_id, "user": user, "location": location}
 
     """
-    results = {"person_id": person_id, "person": person, "location": location}
+    results = {"user_id": user_id, "user": user, "location": location}
     return results
 
 

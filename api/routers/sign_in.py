@@ -9,8 +9,8 @@ from pydantic import SecretStr
 from fastapi import APIRouter, status, Form
 
 # Models
-# from api.models.user_login import LoginOut
-from ..models.user_login import LoginOut
+
+from api.models.user_login import LoginOut
 
 router = APIRouter(prefix="/sign-in", tags=["Sign In"])
 

@@ -1,23 +1,24 @@
 """
 Router for Movies
 """
-from typing import Dict
+from typing import Dict, List
 
 # Python
 
 # Pydantic
 
 # fastpi
-from fastapi import APIRouter, status, HTTPException, Path, Depends
-from starlette.responses import JSONResponse
+from fastapi import APIRouter, status, HTTPException, Path, Depends, Query
+from fastapi.responses import JSONResponse
 
 # Model
-# from api.models.movies import Movies
-from ..models.movies import Movies
+
+from api.models.movies import Movies
 
 # Security
-# from api.security_manager import security_manager
-from ..security_manager import security_manager
+
+from api.security_manager import security_manager
+
 
 router = APIRouter(prefix="/movies", tags=["Movies"])
 
@@ -62,7 +63,7 @@ movies_list_update: dict[str, float | str | int] = {
     "overview": "Description of the movie",
     "year": 2001,
     "rating": 9.1,
-    "category": "Action"
+    "category": "Action",
 }
 
 
@@ -106,9 +107,11 @@ async def get_movie(movie_id: int):
     status_code=status.HTTP_200_OK,
     summary="Get movies by Query Parameter -category-",
 )
-async def get_movie_category(category: str):
+async def get_movie_category(
+    category: str = Query(min_length=5, max_length=15)
+) -> List[Movies]:
     """
-    Obtener película por categorías por Query Parameters
+    Obtener película por categorías por Query Parameters y se validan por medio de -Query-
     """
     filtered_list_movies = list(
         filter(lambda x: category == x["category"], movies_list)
@@ -143,12 +146,13 @@ async def create_movie(movie: Movies):
     summary="Update movie",
 )
 async def update_movie(
-        movie_id: int = Path(
+    movie_id: int = Path(
         gt=0,
         title="The ID of the movie.",
         description="This is the ID movie. It's required.",
-        example=1),
-        movie_to_update: dict = movies_list_update,
+        example=1,
+    ),
+    movie_to_update: dict = movies_list_update,
 ):
     """
     Actualizar una película por parámetros en el body buscando por el parámetro de ID
